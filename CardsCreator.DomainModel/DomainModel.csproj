@@ -5,4 +5,8 @@
     <RootNamespace>CardsCreator.DomainModel</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="TemplateEngine.Docx" Version="1.1.5" />
+  </ItemGroup>
+
 </Project>

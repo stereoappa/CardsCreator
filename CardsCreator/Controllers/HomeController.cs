@@ -8,18 +8,22 @@ using CardsCreator.WebUI.Models;
 using CardsCreator.DomainModel.Interfaces;
 using CardsCreator.Application;
 using CardsCreator.DomainModel;
+using System.Net.Http.Headers;
+using System.IO;
 
 namespace CardsCreator.WebUI.Controllers
 {
     public class HomeController : Controller
     {
         ICardRecoveryService _cardRecoveryService;
-        public HomeController(ICardRecoveryService cardRecoveryService)
+        ICardDocumentService _documentService;
+        public HomeController(ICardRecoveryService cardRecoveryService, ICardDocumentService documentService)
         {
             _cardRecoveryService = cardRecoveryService;
+            _documentService = documentService;
         }
 
-        public async Task<IActionResult> Index()
+        public async Task<FileStreamResult> Index()
         {
             var fullCards = await _cardRecoveryService.TryComplete(
                 new List<Card>
@@ -28,7 +32,10 @@ namespace CardsCreator.WebUI.Controllers
                     new Card(LanguageType.En, LanguageType.Ru, "", "дом"),
                     new Card(LanguageType.En, LanguageType.Ru, "работа", "work"),
                     new Card(LanguageType.En, LanguageType.Ru, "telephone", "телефон"),
-                }) ;
+                });
+
+            var byteArray = _documentService.GetCardsSheetDocument(fullCards);
+
             //Дай WORD документ, НА СЛОВА Cards[]
             //Проверка карточка данных
             //Восстановление незаполненных карточек МЕНЕДЖЕР ПО ВОССТАНОВЛЕНИЮ КАРТОЧЕК (внутри будет использоваться API Yandex)
@@ -36,7 +43,7 @@ namespace CardsCreator.WebUI.Controllers
             //получаем от него word документ 
             //возвращаем пользователю документ
 
-            return View();
+            return new FileStreamResult(new MemoryStream(byteArray), "application/ms-word");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

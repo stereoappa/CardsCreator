@@ -41,7 +41,7 @@ namespace CardsCreator.WebUI
             services.AddTransient<ITranslator, YandexTranslate>();
             services.AddTransient<ILanguageTypeConverter, YandexLanguageTypeConverter>();
             services.AddTransient<ICardRecoveryService, CardRecoveryService>();
-            services.AddTransient<IDocumentService, DocumentService>();
+            services.AddTransient<ICardDocumentService, CardDocumentService>();
             //services.AddHttpClient();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
