@@ -27,6 +27,9 @@ namespace CardsCreator.Application
                 if (card.IsCompleted)
                     continue;
 
+                if (string.IsNullOrWhiteSpace(card.SideOne.Text) && string.IsNullOrWhiteSpace(card.SideTwo.Text))
+                    continue;
+
                 if (string.IsNullOrWhiteSpace(card.SideOne.Text))
                 {
                     card.SideOne.Text = await _translator.GetTranslate(card.SideTwo.Text, card.SideOne.Type);

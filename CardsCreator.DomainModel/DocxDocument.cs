@@ -3,33 +3,53 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using TemplateEngine.Docx;
 
 namespace CardsCreator.DomainModel
 {
-    public abstract class DocxDocument : IDocument
+    public abstract class DocxTemplateBase : IDocument
     {
-        public string Path { get; set; }
+        private readonly string _docxPath;
+        private readonly string _docxDirectory;
 
-        MemoryStream _ms = new MemoryStream();
-        public DocxDocument(string path)
+        protected DocxTemplateBase(string templatePath)
+            : this(templatePath, Path.GetTempPath())
         {
-            Path = path;
+
         }
 
-        public abstract MemoryStream GetContent();
-
-        public byte[] GetBytes()
+        protected DocxTemplateBase(string docxPath, string docxDirectory)
         {
-            return _ms.ToArray();
+            _docxPath = docxPath;
+            _docxDirectory = docxDirectory;
         }
 
-        public MemoryStream GetStream()
+        protected abstract Content GetContent();
+
+        public void SaveToTempFile(string filename)
         {
-            using (var fs = new FileStream(Path, FileMode.Open, FileAccess.ReadWrite))
+            var content = GetContent();
+
+            File.Copy(_docxPath, filename, true);
+            //filename.RemoveAttribute(FileAttributes.ReadOnly);
+
+            using (var file = new TemplateProcessor(filename)
+                .SetRemoveContentControls(true))
             {
-                fs.CopyTo(_ms);
-                return _ms;
+                file.FillContent(content);
+                file.SaveChanges();
             }
         }
+
+
+        public byte[] GetCompleteDocument()
+        {
+            var tempFile = Path.Combine(_docxDirectory, Path.GetRandomFileName());
+            SaveToTempFile(tempFile);
+            var res = File.ReadAllBytes(tempFile);
+            File.Delete(tempFile);
+            return res;
+        }
+
     }
 }

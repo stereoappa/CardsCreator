@@ -6,36 +6,23 @@ using TemplateEngine.Docx;
 
 namespace CardsCreator.DomainModel
 {
-    public class CardsSheetDocx : DocxDocument
+    public class CardsSheetTemplate : DocxTemplateBase
     {
-        public CardsSheetDocx() : base(@"C:\DevelopmentProjects\CardsCreator\CardsCreator\CardsCreator\wwwroot\templates\CardsSheet.docx")
+        private readonly List<Card> _cards;
+        public CardsSheetTemplate(string path, List<Card> cards) : base(path)
         {
-
+            _cards = cards;
         }
 
-        public override MemoryStream GetContent() 
+        protected override Content GetContent()
         {
-            //var valuesToFill = new Content(
-            //    new FieldContent("Report date", DateTime.Now.Date.ToString()),
-            //    new TableContent("Team members")
-            //    .AddRow(
-            //        new FieldContent("SideOne:Text", "Семёнов Илья Васильевич"))
-            //    .AddRow(
-            //        new FieldContent("SideTwo:Text", "Артемьев Вячеслав Геннадьевич"))
-            //);
-
-            var valuesToFill = new Content(new FieldContent("SideOne:Text", "hello"));
-
-            MemoryStream ms = new MemoryStream();
-
-            using (var outputDocument = new TemplateProcessor(Path)
-                .SetRemoveContentControls(true))
+            var cardsTable = new TableContent("CardsTable");
+            foreach (var card in _cards)
             {
-                outputDocument.FillContent(valuesToFill);
-                outputDocument.Document.Save(ms);
+                cardsTable.AddRow(new FieldContent("SideOne:Text", card.SideOne.Text), new FieldContent("SideTwo:Text", card.SideTwo.Text));
             }
 
-            return ms;
+            return new Content(cardsTable);
         }
     }
 }

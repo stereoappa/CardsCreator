@@ -7,7 +7,7 @@ namespace CardsCreator.DomainModel.Interfaces
 {
     public interface IDocument
     {
-        byte[] GetBytes();
-        MemoryStream GetStream();
+        void SaveToTempFile(string filename);
+        byte[] GetCompleteDocument();
     }
 }

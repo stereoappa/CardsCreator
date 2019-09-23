@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using CardsCreator.Application;
@@ -16,9 +17,11 @@ namespace CardsCreator.WebUI
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        IHostingEnvironment _hostingEnvironment;
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            _hostingEnvironment = env;
         }
 
         public IConfiguration Configuration { get; }
@@ -41,7 +44,10 @@ namespace CardsCreator.WebUI
             services.AddTransient<ITranslator, YandexTranslate>();
             services.AddTransient<ILanguageTypeConverter, YandexLanguageTypeConverter>();
             services.AddTransient<ICardRecoveryService, CardRecoveryService>();
-            services.AddTransient<ICardDocumentService, CardDocumentService>();
+            services.AddTransient<ICardsTemplatesService>(serviceProvider => {
+                var contentRoot = Path.Combine(_hostingEnvironment.ContentRootPath, Configuration["AppSettings:CardsTemplateName"]);
+                return new CardsTemplateService(contentRoot);
+            });
             //services.AddHttpClient();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

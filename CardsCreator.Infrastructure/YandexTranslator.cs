@@ -12,7 +12,6 @@ namespace CardsCreator.Infrastructure.Yandex
 {
     public class YandexTranslate : ITranslator
     {
-        IConfiguration _configuration;
         IHttpClientFactory _clientFactory;
         ILanguageTypeConverter _languageTypeConverter;
         readonly string _apiKey;
@@ -20,7 +19,6 @@ namespace CardsCreator.Infrastructure.Yandex
         public YandexTranslate(IConfiguration configuration, IHttpClientFactory clientFactory, ILanguageTypeConverter languageTypeConverter)
         {
             _apiKey = configuration["AppSettings:YandexApiKey"].ToString();
-            _configuration = configuration;
             _clientFactory = clientFactory;
             _languageTypeConverter = languageTypeConverter;
 
@@ -64,9 +62,8 @@ namespace CardsCreator.Infrastructure.Yandex
             var lang = await (response.Content.ReadAsStringAsync());
         
             var transResponse = JsonConvert.DeserializeObject<TranslateResponse>(lang);
+
             return transResponse.text.FirstOrDefault();
         }
-
     }
-
 }

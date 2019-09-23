@@ -7,19 +7,21 @@ using CardsCreator.DomainModel.Interfaces;
 
 namespace CardsCreator.Application
 {
-    public interface ICardDocumentService
+    public interface ICardsTemplatesService
     {
-        byte[] GetCardsSheetDocument(List<Card> cards);
+        byte[] GetCardsTable(List<Card> cards);
     }
-    public class CardDocumentService : ICardDocumentService
+    public class CardsTemplateService : ICardsTemplatesService
     {
-        public CardDocumentService()
+        private readonly string _templatePath;
+        public CardsTemplateService(string templatePath)
         {
-
+            _templatePath = templatePath;
         }
-        public byte[] GetCardsSheetDocument(List<Card> cards)
+        public byte[] GetCardsTable(List<Card> cards)
         {
-            return new CardsSheetDocx().GetBytes();
+            CardsSheetTemplate cardsSheetTemplate = new CardsSheetTemplate(_templatePath, cards);
+            return cardsSheetTemplate.GetCompleteDocument();
         }
     }
 }

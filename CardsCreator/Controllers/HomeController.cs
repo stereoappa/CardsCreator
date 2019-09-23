@@ -16,8 +16,8 @@ namespace CardsCreator.WebUI.Controllers
     public class HomeController : Controller
     {
         ICardRecoveryService _cardRecoveryService;
-        ICardDocumentService _documentService;
-        public HomeController(ICardRecoveryService cardRecoveryService, ICardDocumentService documentService)
+        ICardsTemplatesService _documentService;
+        public HomeController(ICardRecoveryService cardRecoveryService, ICardsTemplatesService documentService)
         {
             _cardRecoveryService = cardRecoveryService;
             _documentService = documentService;
@@ -28,13 +28,12 @@ namespace CardsCreator.WebUI.Controllers
             var fullCards = await _cardRecoveryService.TryComplete(
                 new List<Card>
                 {
-                    new Card(LanguageType.En, LanguageType.Ru, "", ""),
                     new Card(LanguageType.En, LanguageType.Ru, "", "дом"),
                     new Card(LanguageType.En, LanguageType.Ru, "работа", "work"),
                     new Card(LanguageType.En, LanguageType.Ru, "telephone", "телефон"),
                 });
 
-            var byteArray = _documentService.GetCardsSheetDocument(fullCards);
+            var byteArray = _documentService.GetCardsTable(fullCards);
 
             //Дай WORD документ, НА СЛОВА Cards[]
             //Проверка карточка данных
