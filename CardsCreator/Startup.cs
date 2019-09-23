@@ -48,7 +48,7 @@ namespace CardsCreator.WebUI
                 var contentRoot = Path.Combine(_hostingEnvironment.ContentRootPath, Configuration["AppSettings:CardsTemplateName"]);
                 return new CardsTemplateService(contentRoot);
             });
-            //services.AddHttpClient();
+            services.AddTransient<ICardTableService, CardTableService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -72,7 +72,7 @@ namespace CardsCreator.WebUI
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Cards}/{action=Index}/{id?}");
             });
         }
     }

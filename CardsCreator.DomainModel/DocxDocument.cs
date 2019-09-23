@@ -50,6 +50,5 @@ namespace CardsCreator.DomainModel
             File.Delete(tempFile);
             return res;
         }
-
     }
 }
