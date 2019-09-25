@@ -6,8 +6,8 @@ namespace CardsCreator.DomainModel
     {
         public Card(LanguageType sideOneLang, LanguageType sideTwoLang, string wordOne, string wordTwo)
         {
-            SideOne = new Side { Type = sideOneLang, Text = wordOne };
-            SideTwo = new Side { Type = sideTwoLang, Text = wordTwo };
+            SideOne = new Side { LanguageType = sideOneLang, Text = wordOne };
+            SideTwo = new Side { LanguageType = sideTwoLang, Text = wordTwo };
         }
 
         public Side SideOne { get; set; }
@@ -19,7 +19,7 @@ namespace CardsCreator.DomainModel
 
     public class Side
     {
-        public LanguageType Type { get; set; }
+        public LanguageType LanguageType { get; set; }
         public string Text { get; set; }
     }
 }

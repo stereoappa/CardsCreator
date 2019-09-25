@@ -32,11 +32,11 @@ namespace CardsCreator.Application
 
                 if (string.IsNullOrWhiteSpace(card.SideOne.Text))
                 {
-                    card.SideOne.Text = await _translator.GetTranslate(card.SideTwo.Text, card.SideOne.Type);
+                    card.SideOne.Text = await _translator.GetTranslate(card.SideTwo.Text, card.SideOne.LanguageType);
                 }
                 if (string.IsNullOrWhiteSpace(card.SideTwo.Text))
                 {
-                    card.SideTwo.Text = await _translator.GetTranslate(card.SideOne.Text, card.SideTwo.Type);
+                    card.SideTwo.Text = await _translator.GetTranslate(card.SideOne.Text, card.SideTwo.LanguageType);
                 }
             }
 
