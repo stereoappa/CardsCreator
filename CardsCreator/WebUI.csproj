@@ -6,9 +6,42 @@
     <RootNamespace>CardsCreator.WebUI</RootNamespace>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Content Remove="ClientApp\vue-clientapp\dist\web.config" />
+    <Content Remove="ClientApp\vue-clientapp\package-lock.json" />
+    <Content Remove="ClientApp\vue-clientapp\package.json" />
+  </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="bootstrap" Version="4.3.1" />
+    <None Remove="Templates\CardsTemplate.docx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="ClientApp\vue-clientapp\babel.config.js" />
+    <Content Include="ClientApp\vue-clientapp\dist\css\app.ab3b7eef.css" />
+    <Content Include="ClientApp\vue-clientapp\dist\favicon.ico" />
+    <Content Include="ClientApp\vue-clientapp\dist\index.html" />
+    <Content Include="ClientApp\vue-clientapp\dist\js\app.596a51f6.js" />
+    <Content Include="ClientApp\vue-clientapp\dist\js\app.596a51f6.js.map" />
+    <Content Include="ClientApp\vue-clientapp\dist\js\chunk-vendors.19680981.js" />
+    <Content Include="ClientApp\vue-clientapp\dist\js\chunk-vendors.19680981.js.map" />
+    <Content Include="ClientApp\vue-clientapp\postcss.config.js" />
+    <Content Include="ClientApp\vue-clientapp\public\favicon.ico" />
+    <Content Include="ClientApp\vue-clientapp\public\index.html" />
+    <Content Include="ClientApp\vue-clientapp\README.md" />
+    <Content Include="ClientApp\vue-clientapp\src\App.vue" />
+    <Content Include="ClientApp\vue-clientapp\src\assets\logo.png" />
+    <Content Include="ClientApp\vue-clientapp\src\components\AddCard.vue" />
+    <Content Include="ClientApp\vue-clientapp\src\components\CardItem.vue" />
+    <Content Include="ClientApp\vue-clientapp\src\components\CardsList.vue" />
+    <Content Include="ClientApp\vue-clientapp\src\main.js" />
+    <Content Include="Templates\CardsTemplate.docx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
   </ItemGroup>
@@ -22,7 +55,9 @@
 
 
   <ItemGroup>
-    <Folder Include="Content\" />
+    <None Include="ClientApp\vue-clientapp\dist\web.config" />
+    <None Include="ClientApp\vue-clientapp\package-lock.json" />
+    <None Include="ClientApp\vue-clientapp\package.json" />
   </ItemGroup>
 
 </Project>

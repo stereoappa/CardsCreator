@@ -8,7 +8,7 @@ namespace CardsCreator.Application
 {
     public interface ICardTableService
     {
-        Task<byte[]> BuildTable(List<Card> cards);
+        Task<byte[]> GenerateTable(List<Card> cards);
     }
 
     public class CardTableService : ICardTableService
@@ -22,7 +22,7 @@ namespace CardsCreator.Application
             _cardsTemplatesService = cardsTemplatesService;
         }
 
-        public async Task<byte[]> BuildTable(List<Card> cards)
+        public async Task<byte[]> GenerateTable(List<Card> cards)
         {
             var completedCards = await _cardRecoveryService.TryComplete(cards);
 

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using CardsCreator.WebUI.Models;
 using CardsCreator.DomainModel.Interfaces;
 using CardsCreator.Application;
 using CardsCreator.DomainModel;
@@ -13,23 +12,19 @@ using System.IO;
 
 namespace CardsCreator.WebUI.Controllers
 {
-    public class CardsController : Controller
+    [ApiController]
+    public class CardsController : ControllerBase
     {
-        ICardTableService _cardsTableBuilder;
-        public CardsController(ICardTableService cardsTableBuilder)
+        ICardTableService _cardsTableService;
+        public CardsController(ICardTableService cardsTableService)
         {
-            _cardsTableBuilder = cardsTableBuilder;
+            _cardsTableService = cardsTableService;
         }
 
-        public IActionResult Index()
+        [HttpGet("table")]
+        public async  Task<FileStreamResult> GenerateTable()
         {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<FileStreamResult> CreateTable(List<Card> cards)
-        {
-            cards = new List<Card>
+            var cards = new List<Card>
                 {
                     new Card(LanguageType.En, LanguageType.Ru, "spent time", "проводить время"),
                     new Card(LanguageType.En, LanguageType.Ru, "pleasant", "приятный"),
@@ -54,15 +49,10 @@ namespace CardsCreator.WebUI.Controllers
                     new Card(LanguageType.En, LanguageType.Ru, "is known as", "известен как"),
                 };
 
-            var file = await _cardsTableBuilder.BuildTable(cards);
+            var file = await _cardsTableService.GenerateTable(cards);
 
             return File(new MemoryStream(file), "application/octet-stream", "CardsResult.docx");
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
