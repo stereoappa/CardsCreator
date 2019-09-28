@@ -9,22 +9,28 @@ using CardsCreator.Application;
 using CardsCreator.DomainModel;
 using System.Net.Http.Headers;
 using System.IO;
+using System.Text.RegularExpressions;
 
 namespace CardsCreator.WebUI.Controllers
 {
     [ApiController]
     public class CardsController : ControllerBase
     {
-        ICardTableService _cardsTableService;
-        public CardsController(ICardTableService cardsTableService)
+        ICardRestoreService _cardRestoreService;
+        ICardsTableService _cardsTableService;
+        ICardParserService _cardParserService;
+        public CardsController(ICardRestoreService cardRestoreService, ICardsTableService cardsTableService, ICardParserService cardParserService)
         {
             _cardsTableService = cardsTableService;
+            _cardRestoreService = cardRestoreService;
+            _cardParserService = cardParserService;
         }
 
-        [HttpGet("table")]
-        public async  Task<FileStreamResult> GenerateTable()
+        [HttpPost("parse")]
+        public List<Card> Parse(string text, string separator = "-")
         {
-            var cards = new List<Card>
+            //_cardParserService.Parse(text)
+            return new List<Card>
                 {
                     new Card(LanguageType.En, LanguageType.Ru, "spent time", "проводить время"),
                     new Card(LanguageType.En, LanguageType.Ru, "pleasant", "приятный"),
@@ -48,7 +54,13 @@ namespace CardsCreator.WebUI.Controllers
                     new Card(LanguageType.En, LanguageType.Ru, "then", "затем"),
                     new Card(LanguageType.En, LanguageType.Ru, "is known as", "известен как"),
                 };
+        }
 
+
+        [HttpPost("table")]
+        public async Task<FileStreamResult> GenerateTable([FromBody]List<Card> cards)
+        {
+            var restoreResults = await _cardRestoreService.TryRestore(cards);
             var file = await _cardsTableService.GenerateTable(cards);
 
             return File(new MemoryStream(file), "application/octet-stream", "CardsResult.docx");

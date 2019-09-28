@@ -26,6 +26,11 @@ namespace CardsCreator.Infrastructure.Yandex
 
         public async Task<LanguageType> GetLanguage(string text)
         {
+            if (string.IsNullOrWhiteSpace(text))
+            {
+                throw new ArgumentException("Text can't be empty", nameof(text));
+            }
+
             var client = _clientFactory.CreateClient("yandexApiClient");
 
             var formContent = new FormUrlEncodedContent(new[]
@@ -43,7 +48,7 @@ namespace CardsCreator.Infrastructure.Yandex
         public async Task<string> GetTranslate(string text, LanguageType targetLang)
         {
             if (targetLang == LanguageType.Undefined)
-                throw new ArgumentException("Target Language isn't be Undefined");
+                throw new ArgumentException("Target Language isn't be Undefined", nameof(targetLang));
 
             if (string.IsNullOrWhiteSpace(text))
                 return string.Empty;

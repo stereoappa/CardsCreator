@@ -19,6 +19,9 @@ namespace CardsCreator.WebUI
     public class Startup
     {
         IHostingEnvironment _hostingEnvironment;
+        readonly string _localCorsPolicy = "localCorsPolicy";
+        readonly string[] _localCorsHosts = new string[] { "http://localhost:8080", "http://cardscreator.local" };
+
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
@@ -37,13 +40,23 @@ namespace CardsCreator.WebUI
 
             services.AddTransient<ITranslator, YandexTranslate>();
             services.AddTransient<ILanguageTypeConverter, YandexLanguageTypeConverter>();
-            services.AddTransient<ICardRecoveryService, CardRecoveryService>();
+            services.AddTransient<ICardRestoreService, CardRestoreService>();
             services.AddTransient<ICardsTemplatesService>(serviceProvider => {
                 var contentRoot = Path.Combine(_hostingEnvironment.ContentRootPath, Configuration["AppSettings:CardsTemplateName"]);
                 return new CardsTemplateService(contentRoot);
             });
-            services.AddTransient<ICardTableService, CardTableService>();
+            services.AddTransient<ICardsTableService, CardsTableService>();
+            services.AddTransient<ICardParserService, CardParserService>();
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy(_localCorsPolicy,
+                builder =>
+                {
+                    builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader();
+                    //builder.WithOrigins(_localCorsHosts);
+                });
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -61,6 +74,7 @@ namespace CardsCreator.WebUI
             }
 
             //app.UseHttpsRedirection();
+            app.UseCors(_localCorsPolicy);
 
             app.UseMvc();
         }
