@@ -1,8 +1,8 @@
 <template>
   <li v-bind:class="{'error-card': !card.IsCompleted}">
     <span>
-    <input type="checkbox" v-bind:checked="{'checked':card.GoToPrint}" />
-    <strong>{{index + 1}}</strong>
+      <input type="checkbox" v-bind:checked="{'checked':card.GoToPrint}" />
+      <strong>{{index + 1}}</strong>
     </span>
     <span>
       <strong>{{card.SideOne.LanguageType}}</strong>

@@ -3,11 +3,8 @@
     <h1>Create your language cards!</h1>
     <hr />
 
-    <p><input v-model="mode" name="addMode" type="radio" value="manuallyMode">Manually added</p>
-    <p><input v-model="mode" name="addMode" type="radio" value="parseMode"> Parse your text</p>
+    <Creating @add-card="addCard" @parse-cards="parseCards" />
 
-    <AddCard @add-card="addCard" v-show="this.mode=='manuallyMode'"/>
-    <Parse @parse-cards="parseCards" v-show="this.mode=='parseMode'"/>
     <CardsList v-bind:cards="cards" @remove-card="removeCard" />
 
     <button v-on:click="generateTable">Get my cards!</button>
@@ -15,41 +12,27 @@
 </template>
 
 <script>
-import AddCard from "@/components/AddCard";
+//components
+import Creating from "@/components/Creating"
 import CardsList from "@/components/CardsList";
-import Parse from "@/components/Parse";
-import { saveAs } from "file-saver";
 
-var mylib = require('models.js');
+//dependencies
+import AppConfig from "@/vue.config.js"
+import { saveAs } from "file-saver";
+import Card from './models';
+
 export default {
   name: "app",
   data() {
     return {
-      mode: "",
       cards: [
-        new mylib.Card("ad","asd")
-        //{
-        //  SideOne: { LanguageType: 1, Text: "hello" },
-        //  SideTwo: { LanguageType: 2, Text: "привет" },
-        //  IsCompleted: false,
-        //  GoToPrint: true
-        //},
-        //{
-        //  SideOne: { LanguageType: 1, Text: "work" },
-        //  SideTwo: { LanguageType: 2, Text: "работа" },
-        //  IsCompleted: true,
-        //  GoToPrint: true
-        //},
-        //{
-        //  SideOne: { LanguageType: 1, Text: "home" },
-        //  SideTwo: { LanguageType: 2, Text: "дом" },
-        //  IsCompleted: true,
-        //  GoToPrint: true
-        //}
+        new Card("hello", "привет")
       ]
     };
   },
-  mounted() {},
+  mounted() {
+    
+  },
   methods: {
     removeCard(card) {
       this.cards = this.cards.filter(t => t !== card);
@@ -58,13 +41,24 @@ export default {
       this.cards.push(card);
     },
     parseCards(text){
-      console.log(this.mode);
+      var responseCards;
+      this.$http({
+        method: "post",
+        url: AppConfig.apiBaseUri + "parse",
+        data: {text: text, separator: "-"}
+      }).then(response => {
+          response.data.forEach(dtoCard => {
+            this.cards.push(new Card(dtoCard.sideOne.text, dtoCard.sideTwo.text));
+          });
+        }).catch(error => {
+          console.log(error);
+        }).finally(() => {});
     },
     generateTable() {
       this.$http({
         method: "post",
         responseType: "blob",
-        url: "http://api.cardscreator.local/table",
+        url: AppConfig.apiBaseUri + "table",
         data: this.cards
       }).then(response => {
           saveAs(response.data, "YourCards.docx");
@@ -74,9 +68,8 @@ export default {
     }
   },
   components: {
-    AddCard,
-    CardsList,
-    Parse
+    Creating,
+    CardsList
   }
 };
 </script>

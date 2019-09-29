@@ -25,6 +25,7 @@
 </template>
 
 <script>
+import Card from '../models';
 export default {
   data() {
     return {
@@ -35,13 +36,7 @@ export default {
   methods: {
     onSubmit() {
       if (this.sideOneText.trim() && this.sideTwoText.trim()) {
-        const newCard = {
-          SideOne: { LanguageType: 0, Text: this.sideOneText },
-          SideTwo: { LanguageType: 1, Text: this.sideTwoText },
-          IsCompleted: true,
-          GoToPrint: true
-        };
-        this.$emit("add-card", newCard);
+        this.$emit("add-card", new Card(this.sideOneText, this.sideTwoText));
         this.sideOneText = "";
         this.sideTwoText = "";
       }

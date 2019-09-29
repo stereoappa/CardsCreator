@@ -4,6 +4,11 @@ namespace CardsCreator.DomainModel
 {
     public class Card
     {
+        //public Card(string wordOne, string wordTwo) : 
+        //    this(null, null, wordOne, wordTwo)
+        //{
+
+        //}
         public Card(LanguageType? sideOneLang, LanguageType? sideTwoLang, string wordOne, string wordTwo)
         {
             SideOne = new Side { LanguageType = sideOneLang, Text = wordOne };

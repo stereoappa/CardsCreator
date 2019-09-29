@@ -13,7 +13,10 @@ namespace CardsCreator.Application
     {
         public List<Card> Parse(string text, LanguageType sideOneLanguage, LanguageType sideTwoLanguage, string separator = "-")
         {
-            throw new NotImplementedException();
+            return new List<Card>
+            {
+                new Card(LanguageType.En, LanguageType.Ru, "Good", "Job")
+            };
         }
     }
 }
