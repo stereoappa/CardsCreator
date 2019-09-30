@@ -4,12 +4,7 @@ namespace CardsCreator.DomainModel
 {
     public class Card
     {
-        //public Card(string wordOne, string wordTwo) : 
-        //    this(null, null, wordOne, wordTwo)
-        //{
-
-        //}
-        public Card(LanguageType? sideOneLang, LanguageType? sideTwoLang, string wordOne, string wordTwo)
+        public Card(LanguageType sideOneLang, LanguageType sideTwoLang, string wordOne, string wordTwo)
         {
             SideOne = new Side { LanguageType = sideOneLang, Text = wordOne };
             SideTwo = new Side { LanguageType = sideTwoLang, Text = wordTwo };
@@ -19,12 +14,13 @@ namespace CardsCreator.DomainModel
 
         public Side SideTwo { get; set; }
 
-        public bool IsCompleted => !string.IsNullOrWhiteSpace(SideTwo.Text) && !string.IsNullOrWhiteSpace(SideOne.Text);
+        public bool IsCompleted => !string.IsNullOrWhiteSpace(SideTwo.Text) && !string.IsNullOrWhiteSpace(SideOne.Text) && 
+                                    SideOne.LanguageType != LanguageType.Undefined && SideTwo.LanguageType != LanguageType.Undefined;
     }
 
     public class Side
     {
-        public LanguageType? LanguageType { get; set; }
+        public LanguageType LanguageType { get; set; }
         public string Text { get; set; }
     }
 }

@@ -43,12 +43,12 @@ namespace CardsCreator.Application
         public async Task<RestoreResult> TryRestoreLanguageType(Card card)
         {
             var restoredParams = RestoredParams.Nothing;
-            if (!card.SideOne.LanguageType.HasValue && card.SideOne.Text.Length > 0)
+            if (card.SideOne.LanguageType == LanguageType.Undefined && card.SideOne.Text.Length > 0)
             {
                 card.SideOne.LanguageType = await _translator.GetLanguage(card.SideOne.Text);
                 restoredParams = RestoredParams.SideOneLanguageType;
             }
-            if (!card.SideTwo.LanguageType.HasValue && card.SideTwo.Text.Length > 0)
+            if (card.SideTwo.LanguageType == LanguageType.Undefined && card.SideTwo.Text.Length > 0)
             {
                 card.SideTwo.LanguageType = await _translator.GetLanguage(card.SideTwo.Text);
                 restoredParams |= RestoredParams.SideOneLanguageType;
@@ -62,12 +62,12 @@ namespace CardsCreator.Application
             var restoredParams = RestoredParams.Nothing;
             if (string.IsNullOrWhiteSpace(card.SideOne.Text))
             {
-                card.SideOne.Text = await _translator.GetTranslate(card.SideTwo.Text, card.SideOne.LanguageType.Value);
+                card.SideOne.Text = await _translator.GetTranslate(card.SideTwo.Text, card.SideOne.LanguageType);
                 restoredParams = RestoredParams.SideOneTranslate;
             }
             if (string.IsNullOrWhiteSpace(card.SideTwo.Text))
             {
-                card.SideTwo.Text = await _translator.GetTranslate(card.SideOne.Text, card.SideTwo.LanguageType.Value);
+                card.SideTwo.Text = await _translator.GetTranslate(card.SideOne.Text, card.SideTwo.LanguageType);
                 restoredParams |= RestoredParams.SideTwoTranslate;
             }
 

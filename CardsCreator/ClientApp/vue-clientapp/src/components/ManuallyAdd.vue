@@ -25,7 +25,8 @@
 </template>
 
 <script>
-import Card from '../models';
+import Card from '../models/card.js';
+import LanguageType from '../models/languageType.js';
 export default {
   data() {
     return {

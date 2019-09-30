@@ -19,14 +19,17 @@ import CardsList from "@/components/CardsList";
 //dependencies
 import AppConfig from "@/vue.config.js"
 import { saveAs } from "file-saver";
-import Card from './models';
+
+//models
+import Card from './models/card.js'
+import LanguageType from './models/languageType.js';
 
 export default {
   name: "app",
   data() {
     return {
       cards: [
-        new Card("hello", "привет")
+        new Card("hello", "привет", LanguageType.Eng, LanguageType.Rus)
       ]
     };
   },
