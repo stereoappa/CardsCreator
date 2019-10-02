@@ -1,7 +1,7 @@
 <template>
   <li v-bind:class="{'error-card': !card.IsCompleted}">
     <span>
-      <input type="checkbox" v-bind:checked="{'checked':card.GoToPrint}" />
+      <input type="checkbox" v-model="card.GoToPrint" />
       <strong>{{index + 1}}</strong>
     </span>
     <span>
