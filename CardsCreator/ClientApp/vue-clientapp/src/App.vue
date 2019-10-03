@@ -4,6 +4,7 @@
     <hr />
 
     <Creating @add-card="addCard" @parse-cards="parseCards" />
+    <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a> -->
 
     <select v-model="sortMode">
       <option value="sort-default">In order</option>
@@ -112,6 +113,7 @@ export default {
 <style>
 @import url("http://fonts.googleapis.com/css?family=Roboto");
 @import '~materialize-css/dist/css/materialize.min.css';
+@import '~material-icons/iconfont/material-icons.css';
 #app {
 
   font-family: "Roboto", "Avenir", Helvetica, Arial, sans-serif;

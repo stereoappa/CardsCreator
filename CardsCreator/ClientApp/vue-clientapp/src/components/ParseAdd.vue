@@ -1,15 +1,19 @@
 <template>
-  <form @submit.prevent="onSubmit" class="parse">
-    <textarea v-model="textForParsing" rows="10" cols="45" name="text"></textarea>
-    <button type="submit" value="Parse!">Parse!</button>
-  </form>
+  <div>
+    <form @submit.prevent="onSubmit" class="parse">
+      <div class="parse-input">
+      <textarea v-model="textForParsing" rows="10" cols="45" name="text" placeholder="Put your words here"></textarea>
+      </div>
+      <button class="btn" type="submit" value="Parse!">Parse!</button>
+    </form>
+  </div>
 </template>
 
 <script>
 export default {
   data() {
     return {
-      textForParsing: "" 
+      textForParsing: ""
     };
   },
   methods: {
@@ -22,3 +26,22 @@ export default {
   }
 };
 </script>>
+
+<style>
+  .parse-input{
+    /* border: 1px solid black; */
+    border-radius: 18px;
+    box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
+
+    padding: 20px 13px 6px 15px;
+  }
+
+  .parse-input textarea{
+    border: none;
+    resize: vertical;
+    outline: none;
+
+    /* padding: 25px 15px 15px 15px; */
+    
+  }
+</style>

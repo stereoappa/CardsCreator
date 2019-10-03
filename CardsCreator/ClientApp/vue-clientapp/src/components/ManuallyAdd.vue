@@ -1,5 +1,5 @@
 <template>
-  <div class="manual-section">
+  <div>
     <form @submit.prevent="onSubmit">
       <div class="manual-form">
         <div class="side right-border">
@@ -38,8 +38,6 @@ export default {
 </script>>
 
 <style>
-.manual-section {
-}
 
 .manual-form {
   display: flex;
@@ -55,6 +53,7 @@ export default {
   justify-content: center;
 
   width: 50%;
+  padding: 0px 20px;
   /* border-right: 3px dashed rgb(122, 116, 116); */
   /* border: 1px solid red; */
 }
@@ -70,7 +69,7 @@ export default {
 
   /* padding: 15px; */
   padding: 25px 15px 15px 15px;
-  margin: 0px 20px;
+  
 
   text-align: center;
   word-break: break-all;

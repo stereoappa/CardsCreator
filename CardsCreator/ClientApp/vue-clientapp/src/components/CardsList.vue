@@ -1,12 +1,12 @@
 <template>
   <div>
-    <ul>
+    <div class="cards-container">
       <CardItem 
       v-for="(card, i) in cards" 
       v-bind:card="card" 
       v-bind:index="i"
       @remove-card="removeCard"/>
-    </ul>
+    </div>
   </div>
 </template>
 
@@ -26,9 +26,17 @@ export default {
 </script>
 
 <style scoped>
-ul {
+.cards-container{
+    display:flex;
+    flex-wrap:wrap;
+    flex-direction:row;
+    justify-content:space-around;
+    align-items:stretch;
+}
+
+/* ul {
   list-style: none;
   margin: 0;
   padding: 0;
-}
+} */
 </style>>

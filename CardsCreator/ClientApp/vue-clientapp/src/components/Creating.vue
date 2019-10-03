@@ -42,6 +42,10 @@ export default {
 </script>
 
 <style >
+.creating-container{
+  margin-bottom: 30px;
+}
+
 .radio-group input[type=radio] {
   position: absolute;
   visibility: hidden;
@@ -68,12 +72,10 @@ export default {
   border-radius: 18px;
   overflow: hidden;
 
-  text-align: left;
   box-shadow: 2px 1px 4px rgba(0,0,0,0.5);
 }
 
 .creating-inputs {
- 
 
   border: 1px solid #ccc;
   /* border-radius: 18px; */
