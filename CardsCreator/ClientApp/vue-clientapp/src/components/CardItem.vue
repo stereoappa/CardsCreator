@@ -8,13 +8,14 @@
       <span class="tooltip-toprint">To print</span>
     </div>
 
-    <div class="card-part-long">{{card.SideOne.Text}}</div>
-    <div class="card-part-short"><strong>{{card.SideOne.LanguageType}}</strong></div>
+    <div class="card-part-long with-right-border"><span class="word">{{card.SideOne.Text}}</span></div>
+    <!-- <div class="card-part-short"><strong>{{card.SideOne.LanguageType}}</strong></div> -->
 
-    <div class="card-part-long">{{card.SideTwo.Text}}</div>
-    <div class="card-part-short"><strong>{{card.SideTwo.LanguageType}}</strong></div>
+    <div class="card-part-long"><span class="word">{{card.SideTwo.Text}}</span></div>
+    <!-- <div class="card-part-short"><strong>{{card.SideTwo.LanguageType}}</strong></div> -->
 
 <div class="card-part-short">
+  <!-- <i class="small material-icons">cancel</i> -->
     <button class="rm" v-on:click="$emit('remove-card', card)">&times;</button>
 </div>
   </div>
@@ -34,20 +35,40 @@ export default {
 
 <style>
 .card-item {
-  flex-basis: 48%;
+  opacity: 0.5;
+  /* padding: 0px 5px; */
   border: 1px solid #ccc;
   border-radius: 18px;
   box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+  
   display: flex;
-  margin-bottom: 0.6rem;
+  align-items: center;  
+  /* align-content: center; */
+  justify-content: space-around;
+    /* align-items:stretch;
+  /* flex-wrap:wrap; */
+  /* margin-bottom: 0.6rem; */
 }
 
 .card-part-short {
-  /* background-color: antiquewhite; */
   flex-basis: 10%;
+  min-width: 0;
 }
 .card-part-long{
-  flex-basis: 30%;
+  flex-basis: 40%;
+  min-width: 0;
+  /* max-width:180px; */
+}
+.with-right-border{
+  border-right: 2px dashed #ccc;
+}
+
+.word{
+    display:block;
+    word-wrap:break-word;
+    padding: 5px 5px 5px 0px;
+
+    font-weight: 600;
 }
 
 input {
@@ -67,6 +88,7 @@ input {
 /* TOOLTIP */
 /* Tooltip container */
 .tooltip {
+  margin-top: 6px;
   position: relative;
   display: inline-block;
 }

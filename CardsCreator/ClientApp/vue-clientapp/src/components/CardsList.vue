@@ -27,11 +27,23 @@ export default {
 
 <style scoped>
 .cards-container{
-    display:flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(330px, 580px));
+    grid-row-gap: 0.6em;
+
+    grid-auto-rows: minmax(20px, auto);
+    grid-column-gap: 25px;
+    padding: 0px 25px;
+    margin-bottom: 15px;
+
+/* grid-auto-rows: minmax(min-content, max-content); */
+    /* align-content: stretch; */
+    justify-content: center;	
+    /* display:flex;
     flex-wrap:wrap;
     flex-direction:row;
-    justify-content:space-around;
-    align-items:stretch;
+    justify-content:space-around; */
+    /* align-items:stretch; */
 }
 
 /* ul {

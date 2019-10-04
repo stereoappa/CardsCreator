@@ -45,6 +45,8 @@ export default {
   height: 130px;
   border-radius: 18px;
   box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
+
+  margin-bottom: 15px;
 }
 
 .side {

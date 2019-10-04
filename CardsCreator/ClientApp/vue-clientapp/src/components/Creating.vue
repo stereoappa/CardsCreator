@@ -53,6 +53,7 @@ export default {
 }
 
 .radio-group label {
+  font-size: 11pt;
   color: #a47c64;
   display: inline-block;
   cursor: pointer;

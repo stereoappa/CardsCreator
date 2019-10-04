@@ -34,6 +34,7 @@ export default {
     box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
 
     padding: 20px 13px 6px 15px;
+    margin-bottom: 15px;
   }
 
   .parse-input textarea{

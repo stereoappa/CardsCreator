@@ -114,13 +114,17 @@ export default {
 @import url("http://fonts.googleapis.com/css?family=Roboto");
 @import '~materialize-css/dist/css/materialize.min.css';
 @import '~material-icons/iconfont/material-icons.css';
-#app {
+html{
+    background-image: url("./assets/img/tittle-bg-gray.jpg");
+  background-repeat: repeat;
+}
 
+#app {
   font-family: "Roboto", "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 30px;
+  /* margin-top: 10px; */
 }
 </style>
