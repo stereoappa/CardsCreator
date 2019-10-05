@@ -2,9 +2,9 @@
   <div>
     <form @submit.prevent="onSubmit" class="parse">
       <div class="parse-input">
-      <textarea v-model="textForParsing" rows="10" cols="45" name="text" placeholder="Put your words here"></textarea>
+      <textarea v-model="textForParsing" rows="10" cols="45" name="text" placeholder="Put your pair of words here.."></textarea>
       </div>
-      <button class="btn" type="submit" value="Parse!">Parse!</button>
+      <button class="btn" type="submit" value="Parse!" :disabled="this.UIBlocked">Parse!</button>
     </form>
   </div>
 </template>
@@ -35,13 +35,20 @@ export default {
 
     padding: 20px 13px 6px 15px;
     margin-bottom: 15px;
+
+    
+  background-image: url("../assets/img/kraftpaper.jpg");
+  background-repeat: repeat;
+  background-size: 100%;
   }
 
   .parse-input textarea{
     border: none;
     resize: vertical;
     outline: none;
-
+    font-size: 14pt;
+    min-height: 100px;
+    max-height: 500px;
     /* padding: 25px 15px 15px 15px; */
     
   }

@@ -35,7 +35,6 @@ export default {
 
 <style>
 .card-item {
-  opacity: 0.5;
   /* padding: 0px 5px; */
   border: 1px solid #ccc;
   border-radius: 18px;
@@ -45,9 +44,10 @@ export default {
   align-items: center;  
   /* align-content: center; */
   justify-content: space-around;
-    /* align-items:stretch;
-  /* flex-wrap:wrap; */
-  /* margin-bottom: 0.6rem; */
+
+  background-image: url("../assets/img/kraftpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
 
 .card-part-short {
@@ -75,7 +75,7 @@ input {
   margin-right: 1rem;
 }
 .rm {
-  background: red;
+  background: #d50000;
   color: #fff;
   border-radius: 50%;
   font-weight: bold;

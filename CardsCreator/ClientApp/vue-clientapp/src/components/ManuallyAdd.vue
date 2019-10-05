@@ -43,16 +43,23 @@ export default {
   display: flex;
   justify-content: space-between;
   height: 130px;
+  
   border-radius: 18px;
   box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
-
   margin-bottom: 15px;
+
+  background-image: url("../assets/img/kraftpaper.jpg");
+  background-repeat: no-repeat;
+  background-size: 100%;
 }
+
+
 
 .side {
   display: flex;
   align-items: center;
   justify-content: center;
+
 
   width: 50%;
   padding: 0px 20px;

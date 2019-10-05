@@ -1,13 +1,22 @@
 <template>
-<div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+  <div class="lds-ellipsis">
+    <div></div>
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
 </template>
 
 <style scoped>
 .lds-ellipsis {
-  display: inline-block;
+  display: block;
   position: relative;
-  width: 64px;
-  height: 64px;
+  /* width: 64px; */
+  height: 36px;
+
+  display: inline-block;
+  /* text-align: center; */
+  width: auto;
 }
 .lds-ellipsis div {
   position: absolute;
@@ -15,7 +24,7 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: rgb(81, 191, 247);
+  background: #42a5f5;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -58,5 +67,4 @@
     transform: translate(19px, 0);
   }
 }
-
 </style>

@@ -54,21 +54,23 @@ export default {
 
 .radio-group label {
   font-size: 11pt;
-  color: #a47c64;
+  width: 85px;
+  color: #9b0000;
   display: inline-block;
   cursor: pointer;
   padding: 4px 18px;
 }
 .radio-group input[type=radio]:checked + label {
-  color:#f9eed3;
-  background: #a47c64;
+  color:#f7f7f7;
+  background: #9b0000;
 }
 .radio-group label + input[type=radio] + label {
-  border-left: solid 2px #a47c64;
+  border-left: solid 2px #9b0000;
 }
 
 .radio-group {
-  border: solid 1px #a47c64;
+  border: solid 1px #9b0000;
+  margin-right: 6px;
   display: inline-block;
   border-radius: 18px;
   overflow: hidden;
@@ -77,7 +79,6 @@ export default {
 }
 
 .creating-inputs {
-
   border: 1px solid #ccc;
   /* border-radius: 18px; */
 }
@@ -85,6 +86,12 @@ export default {
 .added-section{
   width: 690px;
   margin: auto;
+}
+
+textarea::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:#777272;
+  opacity: 1; /* Firefox */
+  /* font-size: 15pt; */
 }
 
 </style>

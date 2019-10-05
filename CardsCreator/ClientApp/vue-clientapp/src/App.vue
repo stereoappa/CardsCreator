@@ -1,7 +1,9 @@
 <template>
   <div id="app">
-    <h1>Create your language cards!</h1>
+    <header>
+       <h1>Create your language cards!</h1>
     <hr />
+    </header>
 
     <Creating @add-card="addCard" @parse-cards="parseCards" />
     <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a> -->
@@ -16,13 +18,12 @@
           v-bind:cards="sortCards" 
           @remove-card="removeCard" 
     />
-    <p v-else>No added cards</p>
-
-<div style="display:inline-block">
-    <button v-on:click="generateTable" class="btn">Get my cards!</button>
+    <p class="no-cards-text" v-else>Cards not yet created..</p>
+<div>
+    <button v-on:click="generateTable" class="btn" v-show="sortCards.length" :disabled="UIBlocked">Get my cards!</button>
     <Loader v-show="docLoading"/>
 </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -47,6 +48,7 @@ export default {
         new Card("hello", "привет", LanguageType.Eng, LanguageType.Rus)
       ],
       docLoading: false,
+      UIBlocked : false,
       sortMode:"sort-default"
     };
   },
@@ -74,6 +76,7 @@ export default {
       this.cards.push(card);
     },
     parseCards(text){
+      this.UIBlocked = true;
       var responseCards;
       this.$http({
         method: "post",
@@ -84,11 +87,13 @@ export default {
             this.cards.push(new Card(dtoCard.sideOne.text, dtoCard.sideTwo.text));
           });
         }).catch(error => {
+          this.UIBlocked = false;
           console.log(error);
-        }).finally(() => {});
+        }).finally(() => {this.UIBlocked = false;});
     },
     generateTable() {
       this.docLoading = true;
+      this.UIBlocked = true;
       this.$http({
         method: "post",
         responseType: "blob",
@@ -98,8 +103,9 @@ export default {
           saveAs(response.data, "YourCards.docx");
         }).catch(error => {
           this.docLoading = false;
+          this.UIBlocked = false;
           console.log(error);
-        }).finally(() => {this.docLoading = false;});
+        }).finally(() => {this.docLoading = false; this.UIBlocked = false;});
     }
   },
   components: {
@@ -114,9 +120,13 @@ export default {
 @import url("http://fonts.googleapis.com/css?family=Roboto");
 @import '~materialize-css/dist/css/materialize.min.css';
 @import '~material-icons/iconfont/material-icons.css';
-html{
+header{
+  margin-bottom: 40px;
+}
+
+body{
     background-image: url("./assets/img/tittle-bg-gray.jpg");
-  background-repeat: repeat;
+    background-repeat: repeat;
 }
 
 #app {
@@ -124,7 +134,12 @@ html{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  /* color: #2c3e50; */
   /* margin-top: 10px; */
+}
+
+.no-cards-text{
+  font-size: 12pt;
+  font-style: italic;
 }
 </style>
