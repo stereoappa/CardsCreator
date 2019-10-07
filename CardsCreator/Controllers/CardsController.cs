@@ -44,6 +44,9 @@ namespace CardsCreator.WebUI.Controllers
         [HttpPost("table")]
         public async Task<FileStreamResult> GenerateTable([FromBody]List<Card> cards)
         {
+            if (cards.Count == 0)
+                return null;
+
             var restoreResults = await _cardRestoreService.TryRestore(cards);
             var file = await _cardsTableService.GenerateTable(cards);
 
