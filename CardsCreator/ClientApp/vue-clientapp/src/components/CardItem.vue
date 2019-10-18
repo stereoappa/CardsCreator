@@ -96,7 +96,7 @@ input {
 /* Tooltip text */
 .tooltip .tooltip-toprint {
   visibility: hidden;
-  width: 90px;
+  width: 108px;
   background-color: #555;
   color: #fff;
   text-align: center;

@@ -3,14 +3,32 @@
     <form @submit.prevent="onSubmit">
       <div class="manual-form">
         <div class="side right-border">
-          <textarea type="text" v-model="sideOneText" placeholder="Side one" />
+          <textarea
+            type="text"
+            v-model="sideOneText"
+            placeholder="Side one"
+            @keyup.shift.enter="onSubmit"
+          />
         </div>
 
         <div class="side">
-          <textarea type="text" v-model="sideTwoText" placeholder="Side two" />
+          <textarea
+            type="text"
+            v-model="sideTwoText"
+            placeholder="Side two"
+            @keyup.shift.enter="onSubmit"
+          />
         </div>
       </div>
-      <button class="btn" type="submit">Create!</button>
+
+      <div class="tooltip">
+        <label>
+          <button class="btn" type="submit">Create!</button>
+          <span></span>
+        </label>
+        <span class="tooltip-toprint">or Shift + Enter</span>
+      </div>
+      <!-- <button class="btn" type="submit">Create!</button> -->
     </form>
   </div>
 </template>
@@ -38,12 +56,11 @@ export default {
 </script>>
 
 <style>
-
 .manual-form {
   display: flex;
   justify-content: space-between;
   height: 130px;
-  
+
   border-radius: 18px;
   box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.5);
   margin-bottom: 15px;
@@ -53,13 +70,10 @@ export default {
   background-size: 100%;
 }
 
-
-
 .side {
   display: flex;
   align-items: center;
   justify-content: center;
-
 
   width: 50%;
   padding: 0px 20px;
@@ -78,7 +92,6 @@ export default {
 
   /* padding: 15px; */
   padding: 25px 15px 15px 15px;
-  
 
   text-align: center;
   word-break: break-all;

@@ -53,5 +53,10 @@ namespace CardsCreator.WebUI.Controllers
             return File(new MemoryStream(file), "application/octet-stream", "CardsResult.docx");
         }
 
+        [HttpGet("test")]
+        public string TestMethod()
+        {
+            return "Test!";
+        }
     }
 }

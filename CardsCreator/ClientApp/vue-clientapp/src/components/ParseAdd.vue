@@ -4,13 +4,17 @@
       <div class="parse-input">
       <textarea v-model="textForParsing" rows="10" cols="45" name="text" placeholder="Put your pair of words here.."></textarea>
       </div>
-      <button class="btn" type="submit" value="Parse!" :disabled="this.UIBlocked">Parse!</button>
+      <button class="btn" type="submit" value="Parse!" :disabled="UIBlocked">Parse!</button>
+      <Loader v-show="UIBlocked"/>
     </form>
   </div>
 </template>
 
 <script>
+import Loader from "@/components/Loader";
+
 export default {
+  props: {UIBlocked : Boolean},
   data() {
     return {
       textForParsing: ""
@@ -23,6 +27,9 @@ export default {
         this.textForParsing = "";
       }
     }
+  },
+  components: {
+    Loader
   }
 };
 </script>>

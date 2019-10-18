@@ -1,13 +1,17 @@
 import LanguageType from './languageType.js'
 
 export default class Card {
-   constructor(sideOneText, sideTwoText, langTypeOne, langTypeTwo) {
-      this.SideOne = new Side(langTypeOne || LanguageType.Undefined, sideOneText)
-      this.SideTwo = new Side(langTypeTwo || LanguageType.Undefined, sideTwoText)
+   constructor(sideOneText = '', sideTwoText = '', 
+      langTypeOne = LanguageType.Undefined, 
+      langTypeTwo = LanguageType.Undefined) {
+
+
+      this.SideOne = new Side(langTypeOne, sideOneText)
+      this.SideTwo = new Side(langTypeTwo, sideTwoText)
       this.GoToPrint = true; 
    }
    get IsCompleted() {
-      return this.SideOne.Text.trim() && this.SideTwo.Text.trim();
+      return this.SideOne.Text.trim().length > 0 && this.SideTwo.Text.trim().length > 0;
    }
 }
 

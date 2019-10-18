@@ -11,7 +11,7 @@
 
       <div class="added-section">
         <ManuallyAdd @add-card="addCard" v-show="this.mode=='manuallyMode'" />
-        <ParseAdd @parse-cards="parseCards" v-show="this.mode=='parseMode'" />
+        <ParseAdd @parse-cards="parseCards" v-show="this.mode=='parseMode'" v-bind:UIBlocked="UIBlocked" />
       </div>
   </div>
 </template>
@@ -21,6 +21,7 @@ import ManuallyAdd from "@/components/ManuallyAdd";
 import ParseAdd from "@/components/ParseAdd";
 
 export default {
+ props: {UIBlocked : Boolean},
   data() {
     return {
       mode: "manuallyMode"
