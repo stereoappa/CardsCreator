@@ -11,10 +11,13 @@ namespace CardsCreator.Application
 
     public class CardParserService : ICardParserService
     {
-        
+
         public IEnumerable<Card> Parse(LanguageType sideOneLanguage, LanguageType sideTwoLanguage, string cardsText, string separator = "-")
         {
-            var cardRegex = new Regex(CardPatternBuilder.Build(sideOneLanguage, sideTwoLanguage, separator), RegexOptions.Multiline);
+            var cardRegex = new Regex(
+                CardPatternBuilder.Build(sideOneLanguage, sideTwoLanguage, separator), 
+                RegexOptions.Multiline);
+
             foreach (Match match in cardRegex.Matches(cardsText))
             {
                 yield return new Card(sideOneLanguage, sideTwoLanguage, match.Groups[1].Value, match.Groups[3].Value);
@@ -24,13 +27,19 @@ namespace CardsCreator.Application
 
         static class CardPatternBuilder
         {
-            public static List<(LanguageType, string)> Parts => new List<(LanguageType, string)>
+            public static List<(LanguageType, string)> Parts
             {
-                (LanguageType.Ru, $"[A-Za-z{OtherSymbolsPart}]+"),
-                (LanguageType.En, $"[А-Яа-я{OtherSymbolsPart}]+"),
-                (LanguageType.Undefined, $"[A-Za-zА-Яа-я{OtherSymbolsPart}]+")
-            };
-            public static string OtherSymbolsPart => @"0-9\s!\/@#$%&*'`""()";
+                get
+                {
+                    return new List<(LanguageType, string)>
+                    {
+                        (LanguageType.En, $"[A-Za-z{OtherSymbolsPart}]+"),
+                        (LanguageType.Ru, $"[А-Яа-я{OtherSymbolsPart}]+"),
+                        (LanguageType.Undefined, $"[A-Za-zА-Яа-я{OtherSymbolsPart}]+")
+                    };
+                }
+            }
+            public static string OtherSymbolsPart => @"0-9\s!\/@#$%&*',`""()";
 
             public static string Build(LanguageType languageOne, LanguageType languageTwo, string separator = "-")
             {

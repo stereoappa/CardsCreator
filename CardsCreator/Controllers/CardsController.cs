@@ -30,7 +30,6 @@ namespace CardsCreator.WebUI.Controllers
         [HttpPost("parse")]
         public async Task<List<Card>> Parse(ParseContext parseContext)
         {
-
             var cards = _cardParserService.Parse(parseContext.OneSideLanguage,
                                             parseContext.TwoSideLanguage,
                                             parseContext.Text, 
@@ -53,10 +52,11 @@ namespace CardsCreator.WebUI.Controllers
             return File(new MemoryStream(file), "application/octet-stream", "CardsResult.docx");
         }
 
-        [HttpGet("test")]
-        public string TestMethod()
+        [HttpPost("translateCards")]
+        public async Task<List<Card>> TranslateCards([FromBody]List<Card> cards)
         {
-            return "Test!";
+            await _cardRestoreService.TryRestore(cards);
+            return cards; 
         }
     }
 }

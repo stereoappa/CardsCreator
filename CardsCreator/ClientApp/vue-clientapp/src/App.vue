@@ -7,7 +7,7 @@
 
     <Creating @add-card="addCard" @parse-cards="parseCards" v-bind:UIBlocked="UIBlocked" />
     <!-- <a class="btn-floating btn-small waves-effect waves-light red"><i class="material-icons">add</i></a> -->
-
+ 
     <select v-model="sortMode">
       <option value="sort-default">In order</option>
       <option value="sort-by-alphabet">By alphabet</option>
@@ -38,7 +38,6 @@ import CardsList from "@/components/CardsList";
 import Loader from "@/components/Loader";
 
 //dependencies
-import AppConfig from "@/vue.config.js";
 import { saveAs } from "file-saver";
 
 //models
@@ -61,7 +60,11 @@ export default {
       sortMode: "sort-default"
     };
   },
-  mounted() {},
+  mounted() {
+    //Materialize select init
+    var elems = document.querySelectorAll('select');
+    var instances = M.FormSelect.init(elems, null);
+  },
   computed: {
     sortCards() {
       if (this.sortMode === "sort-by-alphabet") {
@@ -93,7 +96,7 @@ export default {
       var responseCards;
       this.$http({
         method: "post",
-        url: AppConfig.apiBaseUri + "parse",
+        url: process.env.VUE_APP_API_URL + "parse",
         data: { text: text, separator: "-" }
       })
         .then(response => {
@@ -118,7 +121,7 @@ export default {
       this.$http({
         method: "post",
         responseType: "blob",
-        url: AppConfig.apiBaseUri + "table",
+        url: process.env.VUE_APP_API_URL + "table",
         data: this.cards
       })
         .then(response => {
